@@ -1,20 +1,11 @@
 Signature-Version: 1.0
 Created-By: 1.6.0_16 (Sun Microsystems Inc.)
 BDJ-Signature-Version: 1.0
-SHA1-Digest-Manifest: ByUSg2FgHj6+df6D57QBlbD8Upw=
+SHA1-Digest-Manifest: PhD9QOdbuUmJRbeZisgRZBnEaJg=
 
 Name: hellotvxlet/HelloTVXlet.class
-SHA1-Digest: QEiBSb/yKNBiLtZIZjgMo3nQHsk=
-
-Name: hellotvxlet/HelloTVXlet$1.class
-SHA1-Digest: jL4rl+dtvgbj4VErj8qjkXfGCe4=
-
-Name: hellotvxlet/MijnComponent.class
-SHA1-Digest: lAMCT+e6u/d6dXj4MjBHWDyc+wY=
+SHA1-Digest: 5LG3XxHnWntXx+VpRtkXdrEGfDk=
 
 Name: hellotvxlet/bluray.HelloTVXlet.perm
 SHA1-Digest: 84ZO/rYCyy0JStmaLbg1GDVEFhQ=
-
-Name: hellotvxlet/MijnTimerTask.class
-SHA1-Digest: 6SwMGHWErSFKgluZhq99O4kfKmU=
 
