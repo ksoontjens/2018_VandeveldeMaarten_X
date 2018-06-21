@@ -27,11 +27,13 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
     private HBackgroundImage bgImg2 = new HBackgroundImage("BGIMG2.png");
     private HBackgroundImage bgImg1 = new HBackgroundImage("mainBG.png");
     private HScene scene;
-    private HStaticText titel,winner,winner1,winner2;
+    private HStaticText titel,winner;
     private HTextButton uitleg,player1,player2;
     
     int isBGgreen = 0;
     int whoWon = 0;
+    
+    String winnername = "WINNER: ";
     
     public void destroyXlet(boolean unconditional) throws XletStateChangeException {
     }
@@ -54,7 +56,7 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
             ex.printStackTrace();
         }
             bgImg1.load(this);
-        
+            
 
         
         scene = HSceneFactory.getInstance().getDefaultHScene();
@@ -85,18 +87,10 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
         player2.setBackgroundMode(HVisible.BACKGROUND_FILL);
         scene.add(player2);
         
-        winner = new HStaticText("WINNER: ");
+        winner = new HStaticText(winnername);
         winner.setLocation(380,430);
         winner.setSize(200,200);
         scene.add(winner);
-        
-        winner1 = new HStaticText("PLAYER1");
-        winner1.setLocation(470,430);
-        winner1.setSize(200,200);
-        
-        winner2 = new HStaticText("PLAYER2");
-        winner2.setLocation(470,430);
-        winner2.setSize(200,200);
         
         UserEventRepository repository = new UserEventRepository("Voorbeeld");
         repository.addKey(HRcEvent.VK_A);
@@ -104,28 +98,30 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
 
         //EventManager
         EventManager.getInstance().addUserEventListener(this,repository);
-        
-        
-        
+ 
     }
 
     public void userEventReceived(UserEvent e) {
-        if(e.getType() == KeyEvent.KEY_PRESSED && isBGgreen == 1){
+        if(e.getType() == KeyEvent.KEY_PRESSED && isBGgreen == 1){ // Keys can only get pressed if the BG is green
             System.out.println("pushed btn");
             switch(e.getCode()){
                 case HRcEvent.VK_A:
                     System.out.println("A pressed");
-                    player1.setBackground(new DVBColor(0,190,0,200));
-                    player1.repaint();
-                    whoWon = 1;
-                    System.out.println(whoWon);
+                    if(whoWon == 0) { // if whoWon == 0, PLAYER2 hasn't reacted yet and hasn't pressed his btn
+                        player1.setBackground(new DVBColor(0,170,0,200)); // Change BTN color
+                        player1.repaint();
+                        whoWon = 1; // makes sure PLAYER2 can't press his button anymore and shows that PLAYER1 has won
+                    } else {System.out.println("A pressed, B was First");}
+     
                     break;
                 case HRcEvent.VK_P:
                     System.out.println("P pressed");
-                    player2.setBackground(new DVBColor(190,0,0,200));
-                    player2.repaint();
-                    whoWon = 2;
-                    System.out.println(whoWon);
+                    if(whoWon == 0){ // if whoWon == 0, PLAYER1 hasn't reacted yet and hasn't pressed his btn
+                       player2.setBackground(new DVBColor(170,0,0,200)); // Change BTN color
+                       player2.repaint();
+                       whoWon = 2; // makes sure PLAYER1 can't press his button anymore and shows that PLAYER2 has won
+                    } else {System.out.println("B pressed, A was First");}
+                    
                     break;
             
             }
@@ -139,10 +135,12 @@ public class HelloTVXlet implements Xlet, ResourceClient, HBackgroundImageListen
         scene.setVisible(true);
         
         if(whoWon == 1) {
-            scene.add(winner1);
+            winnername = "WINNER: PLAYER1";
+            winner.repaint();
         }
         else if (whoWon == 2) {
-            scene.add(winner2);
+            winnername = "WINNER: PLAYER2";
+            winner.repaint();
         }
         
     }
